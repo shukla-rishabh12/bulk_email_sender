@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bulk Email Sender</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="page-bg" aria-hidden="true"></div>
+
+  <main class="container">
+
+    <!-- ================= WELCOME VIEW ================= -->
+    <div id="welcome-view" class="view">
+      <section class="welcome-hero">
+        <div class="hero-badge">
+          <span class="live-dot"></span>
+          <span>Privacy-first bulk sender</span>
+        </div>
+        <h1 class="hero-title">Send personalized emails, at scale</h1>
+        <p class="hero-sub">
+          One CSV. One template. Every recipient gets their own version — with their own files —
+          and everything disappears when done.
+        </p>
+        <button type="button" class="btn-primary hero-cta" onclick="showView('credentials')">
+          <span>Let's get started</span><span class="btn-icon">→</span>
+        </button>
+      </section>
+
+      <section class="welcome-section">
+        <h2>What you'll need</h2>
+        <div class="prereq-grid">
+          <div class="prereq-card">
+            <div class="prereq-icon">📄</div>
+            <h3>A CSV file</h3>
+            <p>Exported from Excel or Google Sheets. Just emails, or emails + names, companies, files.</p>
+          </div>
+          <div class="prereq-card">
+            <div class="prereq-icon">📧</div>
+            <h3>An email account</h3>
+            <p>Gmail, Outlook, Yahoo — any SMTP. You'll need an <strong>App Password</strong>, not your normal password.</p>
+          </div>
+          <div class="prereq-card">
+            <div class="prereq-icon">📎</div>
+            <h3>Files (optional)</h3>
+            <p>One per recipient, if you need. Different file for each person is supported.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="welcome-section">
+        <h2>Get your App Password</h2>
+        <p class="section-sub">
+          Your normal email password won't work here. Google (and most providers) require
+          a separate <strong>App Password</strong> for third-party apps. Here's how to get one:
+        </p>
+
+        <div class="provider-tabs" role="tablist">
+          <button class="tab active" data-provider="gmail" role="tab">Gmail</button>
+          <button class="tab" data-provider="outlook" role="tab">Outlook</button>
+          <button class="tab" data-provider="yahoo" role="tab">Yahoo</button>
+        </div>
+
+        <div class="step-list" id="steps-gmail">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <h4>Open your Google Account</h4>
+              <p>Go to <code>myaccount.google.com</code> and sign in with your Gmail account.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <h4>Open the Security tab</h4>
+              <p>On the left sidebar, click <strong>Security</strong>.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <h4>Turn on 2-Step Verification</h4>
+              <p>If it's not already on, enable it. App Passwords <em>only work</em> with 2-Step Verification active.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <h4>Find "App Passwords"</h4>
+              <p>Search for <strong>App Passwords</strong> in the Security page's search bar, or go directly to <code>myaccount.google.com/apppasswords</code>.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div class="step-body">
+              <h4>Create a new App Password</h4>
+              <p>Type a name like "Bulk Email Sender" and click <strong>Create</strong>.</p>
+            </div>
+          </div>
+          <div class="step highlight-step">
+            <div class="step-num">6</div>
+            <div class="step-body">
+              <h4>Copy the 16-character password</h4>
+              <p>Google shows a password like <code>abcd efgh ijkl mnop</code>. Copy it. <strong>You won't see it again</strong>.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-list hidden" id="steps-outlook">
+          <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Go to account.microsoft.com/security</h4><p>Sign in with your Microsoft account.</p></div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Enable Two-Step Verification</h4><p>Under "Security basics" → "Advanced security options".</p></div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-body"><h4>Create a new app password</h4><p>Under "App passwords" → "Create a new app password".</p></div></div>
+          <div class="step highlight-step"><div class="step-num">4</div><div class="step-body"><h4>Copy the password</h4><p>You won't see it again.</p></div></div>
+        </div>
+
+        <div class="step-list hidden" id="steps-yahoo">
+          <div class="step"><div class="step-num">1</div><div class="step-body"><h4>Go to account.yahoo.com</h4><p>Sign in with your Yahoo account.</p></div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-body"><h4>Account Security → App passwords</h4><p>Generate a new app password for "Other".</p></div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-body"><h4>Copy the password</h4><p>Yahoo shows it once.</p></div></div>
+        </div>
+      </section>
+
+      <section class="welcome-section">
+        <h2>How to use this app</h2>
+        <div class="usecase-steps">
+          <div class="usecase-step">
+            <div class="usecase-number">1</div>
+            <h3>Enter your credentials</h3>
+            <p>Email + App Password. Stays in your browser only — never stored on a server.</p>
+          </div>
+          <div class="usecase-step">
+            <div class="usecase-number">2</div>
+            <h3>Upload CSV, write template</h3>
+            <p>Use <code>[name]</code>, <code>[company]</code> etc. for personalization.</p>
+          </div>
+          <div class="usecase-step">
+            <div class="usecase-number">3</div>
+            <h3>Preview and send</h3>
+            <p>See exactly what each recipient gets. Send with one click.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="welcome-section privacy-section">
+        <div class="privacy-icon">🔒</div>
+        <h2>Your credentials never leave your browser's storage</h2>
+        <p>We don't save them on the server. Emails are deleted right after sending. Restart the app — nothing remains.</p>
+      </section>
+      
+      <section class="welcome-section privacy-section">
+        <div class="privacy-icon">🔒</div>
+        <h2>if u have multiple files to for each gmail</h2>
+        <p>write it like file1|file2|file3</p>
+      </section>
+
+      <section class="welcome-section final-cta">
+        <button type="button" class="btn-primary" onclick="showView('credentials')">
+          <span>I have my App Password</span><span class="btn-icon">→</span>
+        </button>
+      </section>
+    </div>
+
+    <!-- ================= CREDENTIALS VIEW ================= -->
+    <div id="credentials-view" class="view hidden">
+      <div class="credentials-card glass-card">
+        <div class="credentials-header">
+          <h1>Enter your email credentials</h1>
+          <p>These stay in your browser — we never store them on a server.</p>
+        </div>
+
+        <form id="credentials-form">
+          <label class="input-group">
+            <span class="input-label">Email address</span>
+            <input type="email" id="cred-email" placeholder="you@gmail.com" required autocomplete="username" spellcheck="false">
+          </label>
+
+          <label class="input-group">
+            <span class="input-label">
+              App Password
+              <span class="label-hint">16 characters from Google</span>
+            </span>
+            <div class="password-input-wrap">
+              <input type="password" id="cred-password" placeholder="abcd efgh ijkl mnop" required autocomplete="current-password" spellcheck="false">
+              <button type="button" class="password-toggle" id="toggle-password" aria-label="Show password">👁</button>
+            </div>
+          </label>
+
+          <label class="checkbox-group">
+            <input type="checkbox" id="remember-device">
+            <span class="checkbox-label">
+              <b>Remember on this device</b>
+              <small>Uses browser localStorage. Only use on your personal computer — never on shared devices.</small>
+            </span>
+          </label>
+
+          <div id="cred-error" class="warn-line hidden"></div>
+
+          <button type="submit" class="btn-primary" id="cred-submit">
+            <span id="cred-submit-text">Test connection & continue</span>
+          </button>
+
+          <div class="credential-links">
+            <a href="#" onclick="showView('welcome'); return false;">← Back to tutorial</a>
+            <a href="#" onclick="showView('welcome'); return false;">How to get App Password?</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ================= APP VIEW ================= -->
+    <div id="app-view" class="view hidden">
+      <header class="app-header">
+        <div class="app-brand">📬 Bulk Email Sender</div>
+        <div class="app-header-right">
+          <span class="user-chip">
+            <span class="user-email" id="logged-in-email"></span>
+            <button type="button" class="user-switch" onclick="switchAccount()" title="Switch account">⏻</button>
+          </span>
+        </div>
+      </header>
+
+      <form id="form" class="glass-card form-card">
+        <label class="input-group">
+          <span class="input-label">Subject</span>
+          <input type="text" id="subject" placeholder="Hi [name], update from [company]" autocomplete="off" spellcheck="false">
+        </label>
+
+        <label class="input-group">
+          <span class="input-label">
+            Body
+            <span class="label-hint">Placeholders: [email], [name], [company], …</span>
+          </span>
+          <textarea id="body" rows="6" placeholder="Hello [name],&#10;Aap [company] se ho.&#10;Email: [email]"></textarea>
+        </label>
+
+        <div class="dropzone-row">
+          <label class="dropzone" id="dropzone-csv">
+            <input type="file" id="file" accept=".csv" required>
+            <span class="dz-icon">📄</span>
+            <span class="dz-content">
+              <span class="dz-title" id="filename">Choose CSV file</span>
+              <span class="dz-hint">Required · .csv only</span>
+            </span>
+          </label>
+
+          <label class="dropzone" id="dropzone-files">
+            <input type="file" id="attachments" multiple>
+            <span class="dz-icon">📎</span>
+            <span class="dz-content">
+              <span class="dz-title" id="attachments-name">Attach files</span>
+              <span class="dz-hint">Optional · multiple allowed</span>
+            </span>
+          </label>
+        </div>
+
+        <button type="submit" id="submit" class="btn-primary">
+          <span class="btn-icon">✈️</span>
+          <span>Send Emails</span>
+        </button>
+      </form>
+
+      <section id="preview-wrap" class="hidden">
+        <div class="panel" id="csv-stats"></div>
+
+        <div class="panel" id="columns-wrap">
+          <div class="panel-title">
+            🏷️ Columns
+            <span class="panel-hint">Click a chip to insert into subject or body</span>
+          </div>
+          <span class="chip-label" id="columns-label"></span>
+          <div class="chips" id="columns-chips"></div>
+        </div>
+
+        <div class="panel hidden" id="column-stats"></div>
+        <div class="panel hidden" id="files-info"></div>
+
+        <div class="panel hidden" id="attach-preview">
+          <div class="panel-title">🔗 Attachment mapping</div>
+          <div class="preview-row" id="attach-summary"></div>
+          <div class="mapping" id="mapping-list"></div>
+          <div class="warnings" id="attach-warnings"></div>
+        </div>
+      </section>
+
+      <section id="report-wrap" class="panel hidden">
+        <div class="panel-title">📋 Session report</div>
+        <p id="report-summary"></p>
+        <div class="table-scroll hidden" id="report-table-wrap">
+          <table id="report-table">
+            <thead><tr><th>Email</th><th>Occurrences</th></tr></thead>
+            <tbody id="report-body"></tbody>
+          </table>
+        </div>
+        <div id="report-attach" class="warnings hidden"></div>
+        <button type="button" id="download-report" class="btn-secondary">
+          <span class="btn-icon">⬇</span>
+          <span>Download Detailed Report (.txt)</span>
+        </button>
+      </section>
+
+      <section id="progress-wrap" class="panel progress-panel hidden">
+        <div class="panel-title">
+          <span>📤 Sending</span>
+          <span class="progress-percent" id="progress-percent">0%</span>
+        </div>
+        <div class="progress-track">
+          <div id="bar"></div>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-label">Sent</span>
+            <span class="stat-value stat-success" id="sent">0</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Failed</span>
+            <span class="stat-value stat-error" id="failed">0</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Total</span>
+            <span class="stat-value" id="total">0</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Speed</span>
+            <span class="stat-value"><b id="speed">0.0</b><small>/sec</small></span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">ETA</span>
+            <span class="stat-value" id="eta">–</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Workers</span>
+            <span class="stat-value" id="workers">–</span>
+          </div>
+        </div>
+        <p id="status-msg"></p>
+      </section>
+    </div>
+
+  </main>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
